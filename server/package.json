@@ -9,6 +9,7 @@
   "author": "Shashank",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "querystring": "^0.2.0",
     "request": "^2.87.0",

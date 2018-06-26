@@ -23,23 +23,28 @@ app.use((req, res, next) => {
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+	extended : false
+}));
+app.use(bodyParser.json());
 
 app.post('/twitter', (req, res) => {
+  console.log("REACHEDD")
   var tag = req.body.tag;
-  twitterSearch.get('search/tweets', {q: `%23${req.body.tag}`, result_type:'recent', count:'100'}, (error, data, response) => {
+  twitterSearch.get('search/tweets', {q: tag, result_type:'recent', count:'100'}, (error, tweets, response) => {
+    console.log("REACHED")
     if(!error) {
       var bounds = [];
-      data.statuses.map((status) => {
+      tweets.statuses.map((status) => {
+                  console.log("BOUND: ")
         if(status.user.geo_enabled && status.place !== null) {
           bounds.push(status.place.bounding_box.coordinates);
-          //console.log(bounds);
+
+          console.log(status.place.bounding_box.coordinates)
         }
       });
-      console.log(bounds);
-      console.log("Sending bounds to React");
       res.send(bounds);
+      bounds = [];
     }
   })
 });

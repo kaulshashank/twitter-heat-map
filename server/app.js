@@ -5,10 +5,10 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const Twitter = require('twitter');
 
-const CONSUMER_KEY = 'aduXEg4tLvqqZeB37JWEEpNPo';
-const CONSUMER_SECRET = 'hA9iLFvutr4b0cgJgS7RsS8wtMHzzfNun0xYpiQuwglHQ58H58';
-const ACCESS_TOKEN_KEY = '471474605-4PM5uIdgVwrCGrlKjssr8HPrX9Gdnudy2pXANOgn';
-const ACCESS_TOKEN_SECRET = 'VcDOxXhjzX8bx8A7oTcFcmvCfaK03AiJ6SyJOsRow8nkc';
+const CONSUMER_KEY = '';
+const CONSUMER_SECRET = '';
+const ACCESS_TOKEN_KEY = '';
+const ACCESS_TOKEN_SECRET = '';
 
 const twitterSearch = new Twitter({
   consumer_key: CONSUMER_KEY,

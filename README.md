@@ -1,4 +1,4 @@
-# Twitter tweets heat hap
+# Twitter tweets heat map
 
 To run the application, navigate to `client` and `server` directories in seperate terminals and run the following command to install the dependencies.
 ```

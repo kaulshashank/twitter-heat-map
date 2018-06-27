@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
 
-{MAP_API_KEY} from '../index.js';
+import {MAP_API_KEY} from '../index.js';
 
 class MapContainer extends Component {
   constructor(props) {

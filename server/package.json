@@ -9,8 +9,10 @@
   "author": "Shashank",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "google-geocoder": "^0.2.1",
     "querystring": "^0.2.0",
     "request": "^2.87.0",
     "twitter": "^1.7.1"

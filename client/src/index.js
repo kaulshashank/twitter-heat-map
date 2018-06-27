@@ -21,28 +21,19 @@ class App extends Component {
           google={this.props.google}
           bounds={this.state.bounds}
         />
-        {this.state.bounds.join(' ')}
+        {this.state.bounds.join(' | ')}
       </div>
     )
   }
   Search(hashtag) {
-    axios({
-      method: 'POST',
-      url: 'http://localhost:1337/twitter',
-      params: {
-        tag: hashtag
-      }
-    }).then((response) => {
-      if(this.state.bounds) {
+    axios.post('http://localhost:1337/twitter', {tag: hashtag})
+    .then((response) => {
+      this.state.bounds.length = 0;
+      response.data.map((res) => {
         this.setState({
-          bounds: []
-        })
-      }
-      response.data.map((res) => res.map((r) => r.map((subr)=> {
-        this.setState({
-          bounds: [...this.state.bounds, subr]
+          bounds: [...this.state.bounds, res]
         });
-      })))
+      });
     })
   }
 }

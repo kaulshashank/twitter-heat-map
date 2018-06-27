@@ -5,6 +5,7 @@ const request = require('request');
 const bodyParser = require('body-parser');
 const Twitter = require('twitter');
 
+const MAPS_KEY = 'AIzaSyB9jczIiGXLjxzsDJkuzGb_d1EZyiRt7K4';
 const CONSUMER_KEY = 'aduXEg4tLvqqZeB37JWEEpNPo';
 const CONSUMER_SECRET = 'hA9iLFvutr4b0cgJgS7RsS8wtMHzzfNun0xYpiQuwglHQ58H58';
 const ACCESS_TOKEN_KEY = '471474605-4PM5uIdgVwrCGrlKjssr8HPrX9Gdnudy2pXANOgn';
@@ -17,37 +18,39 @@ const twitterSearch = new Twitter({
   access_token_secret: ACCESS_TOKEN_SECRET
 });
 
-app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.sendStatus(200);
+  } else {
     next();
-});
-app.use(bodyParser.urlencoded({
-	extended : false
-}));
+  }
+};
+app.use(allowCrossDomain);
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/twitter', (req, res) => {
-  console.log("REACHEDD")
-  var tag = req.body.tag;
-  twitterSearch.get('search/tweets', {q: tag, result_type:'recent', count:'100'}, (error, tweets, response) => {
-    console.log("REACHED")
-    if(!error) {
-      var bounds = [];
-      tweets.statuses.map((status) => {
-                  console.log("BOUND: ")
-        if(status.user.geo_enabled && status.place !== null) {
-          bounds.push(status.place.bounding_box.coordinates);
-
-          console.log(status.place.bounding_box.coordinates)
-        }
-      });
-      res.send(bounds);
-      bounds = [];
-    }
+  console.log("body", req.body);
+  var bounds = [];
+  twitterSearch.get('search/tweets', {q: req.body.tag, result_type:'recent', count:'100'},
+  (error, tweets, response) => {
+    if(error) { console.log(error) }
+    tweets.statuses.map(status => {
+      if(status.user.geo_enabled && (status.geo !== null)) {
+        console.log(status.geo.coordinates);
+        bounds.push(status.geo.coordinates);
+      }
+    });
+    console.log("Sending the above bounds...")
+    res.send(bounds);
   })
 });
+
+
 
 app.listen(1337, () => {
   console.log("App has started");

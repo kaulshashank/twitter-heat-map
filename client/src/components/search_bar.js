@@ -11,10 +11,11 @@ class SearchBar extends Component {
       <div className="search-bar">
         <form onSubmit={this.submitForm}>
           <input
+            className ="form-control"
             name="hash_tag"
             placeholder='Enter a hash tag...'
           />
-          <button className="btn-primary"> submit </button>
+          <button className="btn btn-primary btn-round">Search</button>
         </form>
       </div>
     );

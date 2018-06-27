@@ -14,27 +14,28 @@ class MapContainer extends Component {
   }
   render() {
     return(
-      <div className="embed-responsive embed-responsive-16by9">
+      <div className="mapdiv embed-responsive embed-responsive-16by9">
         <Map ref="map" google={this.props.google} />
       </div>
     );
   }
   loadMap() {
     if(this.props) {
+      //console.log(this.props);
       const {google} = this.props;
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
       const mapConfig = Object.assign({}, {
-        center: {lat: 0, lng: 180},
-        zoom: 2,
-        gestureHandling: 'cooperative',
+        center: new google.maps.LatLng(0, 0),
+	      zoom: 2,
+	      minZoom: 2,
         mapTypeId: 'terrain'
       })
       var heatmapData = [];
 
       this.props.bounds.map((point) => {
-        heatmapData.push(new google.maps.LatLng(point[1], point[0]));
+        heatmapData.push(new google.maps.LatLng(point[0], point[1]));
       })
       //console.log(heatmapData);
       var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -44,7 +45,6 @@ class MapContainer extends Component {
 
       this.map = new google.maps.Map(node, mapConfig);
       heatmap.setMap(this.map)
-      heatmapData = [];
     }
   }
 }

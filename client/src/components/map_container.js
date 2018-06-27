@@ -28,28 +28,44 @@ class MapContainer extends Component {
 
       const mapConfig = Object.assign({}, {
         center: new google.maps.LatLng(0, 0),
-	      zoom: 2,
+	      zoom: 3,
 	      minZoom: 2,
-        mapTypeId: 'terrain'
+        mapTypeId: 'satellite'
       })
       var heatmapData = [];
-
+      var markers = [];
       this.props.bounds.map((point) => {
         heatmapData.push(new google.maps.LatLng(point[0], point[1]));
+        markers.push({lat: point[0], lng: point[1]});
       })
       //console.log(heatmapData);
       var heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatmapData,
-        radius: 20
+        radius: 10
       })
 
       this.map = new google.maps.Map(node, mapConfig);
-      heatmap.setMap(this.map)
+      // markers.forEach(marker => {
+      //   new google.maps.Marker({
+      //     position: marker,
+      //     map: this.map,
+      //     title: "test"
+      //   }).setMap(this.map);
+      // });
+      heatmap.setMap(this.map);
     }
   }
 }
 
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
 export default GoogleApiWrapper({
-  apiKey: 'LOL',
+  apiKey: 'nope',
   libraries: ['visualization']
 })(MapContainer);

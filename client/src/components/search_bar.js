@@ -13,7 +13,7 @@ class SearchBar extends Component {
           <input
             className ="form-control"
             name="hash_tag"
-            placeholder='Enter a hash tag...'
+            placeholder='Enter a hashtag (Common hashtags with geolocation include #traffic, #beach, etc...)'
           />
           <button className="btn btn-primary btn-round">Search</button>
         </form>

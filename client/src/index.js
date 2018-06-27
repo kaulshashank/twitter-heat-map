@@ -21,7 +21,6 @@ class App extends Component {
           google={this.props.google}
           bounds={this.state.bounds}
         />
-        {this.state.bounds.join(' | ')}
       </div>
     )
   }

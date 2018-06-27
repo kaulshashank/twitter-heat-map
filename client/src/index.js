@@ -5,6 +5,8 @@ import axios from 'axios';
 import SearchBar from './components/search_bar';
 import MapComponent from './components/map_container';
 
+const MAP_API_KEY = ' ';
+
 class App extends Component {
   constructor(props) {
     super(props);

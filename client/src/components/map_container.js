@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
 
+{MAP_API_KEY} from '../index.js';
+
 class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +68,6 @@ function toggleBounce() {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'nope',
+  apiKey: MAP_API_KEY,
   libraries: ['visualization']
 })(MapContainer);
